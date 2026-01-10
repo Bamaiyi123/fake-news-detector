@@ -52,10 +52,12 @@ st.markdown(CSS, unsafe_allow_html=True)
 # -----------------------------
 # Load model & tokenizer (PyTorch)
 # -----------------------------
+model_name="model"
 @st.cache_resource
 def load_model(model_name="mrm8488/bert-tiny-finetuned-fake-news-detection"):
      tokenizer = AutoTokenizer.from_pretrained(model_name)
      model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
+     model.eval()
      return model, tokenizer
 
 try:
@@ -475,3 +477,4 @@ else:  # About
 
 st.markdown("---")
 st.caption("Built with ❤️ — Streamlit + Transformers. Ensure Streamlit runs in same Python env as installed packages. adeyi bamaiyi. thanks mr steve, thanks torbita. love u guys  ")
+
