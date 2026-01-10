@@ -1,17 +1,16 @@
 import os
 # Prevent transformers from importing torch (use TF-only loading)
-os.environ.setdefault("TRANSFORMERS_NO_TORCH", "1")
 os.environ.setdefault("HF_HUB_REQUEST_TIMEOUT", "120")
 
 import io
 import shutil
 import streamlit as st
-import tensorflow as tf
+import torch
 import numpy as np
 import pandas as pd
 import requests
 
-from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 # -----------------------------
 # Styling (purple/blue glass theme)
@@ -434,7 +433,8 @@ st.markdown(CSS, unsafe_allow_html=True)
 @st.cache_resource
 def load_model(model_name="mrm8488/bert-tiny-finetuned-fake-news-detection"):
      tokenizer = AutoTokenizer.from_pretrained(model_name)
-     model = TFAutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2, from_pt=True)
+     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2, from_pt=True)
+     model.eval()
      return model, tokenizer
 
 try:
@@ -664,3 +664,4 @@ else:
 
 st.markdown("---")
 st.caption("Built with ❤️ — Streamlit + Transformers. Ensure Streamlit runs in same Python env as installed packages.")
+
