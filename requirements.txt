@@ -1,5 +1,4 @@
 streamlit
-tensorflow
 transformers==4.57.3
 pandas
 numpy
