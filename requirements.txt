@@ -1,7 +1,6 @@
 streamlit
 transformers==4.57.3
-torch==2.2.2+cpu
---extra-index-url https://download.pytorch.org/whl/cpu
+torch
 
 pandas
 numpy
